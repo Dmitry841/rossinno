@@ -1,4 +1,3 @@
-### rossinno
 ## log files viewer
 ## Welcome to log file viewer app - Приложение для просмотра последних изменений в лог файле.
 
