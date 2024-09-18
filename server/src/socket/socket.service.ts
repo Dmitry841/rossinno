@@ -20,8 +20,8 @@ interface IDto {
 export class SocketService implements OnGatewayConnection {
   constructor(private readonly appService: AppService) {}
   @SubscribeMessage('server-path')
-  async handleEvent(@MessageBody() dto: IDto, @ConnectedSocket() client: any) {
-    const res = await this.appService.getLogs(dto.rowsCount);
+  handleEvent(@MessageBody() dto: IDto, @ConnectedSocket() client: any) {
+    const res = this.appService.getLogs(dto.rowsCount);
     client.emit('client-path', res);
   }
 

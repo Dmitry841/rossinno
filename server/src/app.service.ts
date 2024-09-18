@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as readLastLines from 'read-last-lines';
+import { readLastLinesEnc } from 'read-last-lines-ts';
 
 @Injectable()
 export class AppService {
-  async getLogs(rowsCount = 10): Promise<string[]> {
+  getLogs(rowsCount = 10): string[] {
     const current = process.cwd();
-    const result = await readLastLines.read(
-      path.resolve(current, '../server/src/test.log'),
+    const result = readLastLinesEnc('utf8')(
+      path.resolve(current, '../server/src/mock.log'),
       rowsCount,
     );
     return result.split('\n');
@@ -18,7 +18,7 @@ export class AppService {
     const current = process.cwd();
     try {
       fs.appendFileSync(
-        path.resolve(current, '../server/src/test.log'),
+        path.resolve(current, '../server/src/mock.log'),
         `\n${value}`,
       );
     } catch (err) {
